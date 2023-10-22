@@ -72,6 +72,17 @@ yarn preview
 # bun
 bun run preview
 ```
+PWA configuration:
+ 
+```bash
+npm i @vite-pwa/nuxt -D 
+
+# yarn 
+yarn add @vite-pwa/nuxt -D
+
+# pnpm 
+pnpm add @vite-pwa/nuxt -D
+```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 =======
