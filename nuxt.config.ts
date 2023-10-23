@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules:['@vite-pwa/nuxt'],
+  modules:['@vite-pwa/nuxt','@pinia/nuxt',],  //todo how to add pinia auto import ?
   css: ['~/assets/css/custom-styles.css'],
   pwa:{
     manifest:{
