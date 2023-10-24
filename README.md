@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
@@ -72,19 +73,21 @@ yarn preview
 # bun
 bun run preview
 ```
-PWA configuration:
- 
-```bash
-npm i @vite-pwa/nuxt -D 
 
-# yarn 
+PWA configuration:
+
+```bash
+npm i @vite-pwa/nuxt -D
+
+# yarn
 yarn add @vite-pwa/nuxt -D
 
-# pnpm 
+# pnpm
 pnpm add @vite-pwa/nuxt -D
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-=======
+# Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
 # pwa-poc-nuxt3
->>>>>>> 229e454778b560fb0dbc1f82f37279e1e5c2482f
+
+> > > > > > > 229e454778b560fb0dbc1f82f37279e1e5c2482f

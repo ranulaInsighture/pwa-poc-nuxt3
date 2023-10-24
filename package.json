@@ -7,12 +7,30 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write .",
+    "commit": "cz",
+    "prettier:check": "npx prettier --check .",
+    "prettier:fix": "npx prettier --write .",
+    "lint": "npx eslint .",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
     "@nuxt/devtools": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
     "@vite-pwa/nuxt": "^0.1.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.2",
     "nuxt": "^3.7.4",
+    "prettier": "^3.0.3",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
@@ -23,7 +41,15 @@
     "localforage": "^1.10.0",
     "pinia": "^2.1.7"
   },
-  "overrides": {
-    "vue": "latest"
+  "lint-staged": {
+    "*.{css,less,scss,html,json,jsx,js}": [
+      "prettier --write ."
+    ],
+    "*.js": "eslint --fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
