@@ -153,7 +153,7 @@ import { ref, onMounted, onUnmounted, computed, reactive } from "vue-demi";
 import { useNotesStore } from "~/stores/notesStore";
 import FileUploadPreview from "~/components/previews/FileUploadPreview.vue";
 import localforage from "localforage";
-// import ImageCompressor from 'image-compressor.js';  //todo - cant we use this in Nuxt with serverside rendering ?
+import ImageCompressor from 'image-compressor.js';  //todo - cant we use this in Nuxt with serverside rendering ?
 import { useOnline } from "@vueuse/core"; //todo have add this
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
