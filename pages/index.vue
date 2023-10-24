@@ -107,6 +107,7 @@
 </template>
 <script setup lang="ts">
 import {ref, onMounted, onUnmounted, computed,reactive} from 'vue-demi';
+import { useNotesStore } from '~/stores/notesStore';
 import FileUploadPreview from '~/components/previews/FileUploadPreview.vue';
 import localforage from 'localforage';
 // import ImageCompressor from 'image-compressor.js';  //todo - cant we use this in Nuxt with serverside rendering ?
@@ -128,6 +129,7 @@ const showVideo = ref(false)
 const loading = ref<boolean>(true);
 const stream = ref<MediaStream | null>(null);
 const videoElement = ref<HTMLVideoElement | null>(null);
+const { fetchNotesForIndex, notesForIndex, isLoading, error } = useNotesStore();
 
 // Lifecycle hooks for component mount and unmount events
 onMounted(() => {
@@ -379,6 +381,8 @@ const fetchNotes = async () => {
       throw new Error(`Network response was not ok, received status code: ${response.status}`);
     }
     tempData.value = await response.json() as any[];
+    console.log(' tempData.value', tempData.value);
+    console.log(' notesForIndex', notesForIndex);
   } catch (error) {
     console.error('An error occurred while fetching notes:', error);
   }
