@@ -215,12 +215,12 @@ const onFileChange = (event: Event) => {
 const uploadImage = async () => {
   if (!imageFile.value) return;
   if (process.client) {
-    // const compressor = new ImageCompressor();
-    // const compressedFile = await compressor.compress(imageFile.value, {
-    //   quality: 0.4,
-    //   maxWidth: 100,
-    //   maxHeight: 100
-    // });
+    const compressor = new ImageCompressor();
+    const compressedFile = await compressor.compress(imageFile.value, {
+      quality: 0.4,
+      maxWidth: 100,
+      maxHeight: 100
+    });
 
     const reader = new FileReader();
 
@@ -238,9 +238,10 @@ const uploadImage = async () => {
           await uploadToServer(imageData);
         }
       }
-    });
+    });:
 
-    reader.readAsDataURL(imageFile.value);
+
+    reader.readAsDataURL(compressedFile);
   }
 };
 
