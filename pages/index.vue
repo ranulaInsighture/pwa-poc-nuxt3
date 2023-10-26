@@ -33,30 +33,21 @@
           </div>
         </div>
       </div>
-      <div class="row row-custom" v-if="displayNoteButton">
-        <div class="content-card">
-          <h2 class="title">Added Notes</h2>
-          <div v-for="(item, index) in tempData" :key="index">
-            <p class="description">
-              {{ item.text }}
-            </p>
-            <!--              <button class="edit-btn">Edit</button>-->
-          </div>
-        </div>
-      </div>
     </div>
     <div class="row row-custom" v-if="displayNoteButton">
-      <!--      <file-upload-preview :items="tempData"></file-upload-preview>-->
       <div class="content-card">
         <h2 class="title">Added Notes</h2>
-        <div v-for="(item, index) in tempData" :key="index">
-          <p class="description">
-            {{ item.text }}
-          </p>
-        </div>
+        <FileUploadPreviewl />
       </div>
+<!--      <div class="content-card">-->
+<!--        <h2 class="title">Added Notes</h2>-->
+<!--        <div v-for="(item, index) in tempData" :key="index">-->
+<!--          <p class="description">-->
+<!--            {{ item.text }}-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
-
     <div class="row">
       <button
         v-if="displayNoteButton"
@@ -151,7 +142,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed, reactive } from "vue-demi";
 import { useNotesStore } from "~/stores/notesStore";
-import FileUploadPreview from "~/components/previews/FileUploadPreview.vue";
+import FileUploadPreviewl from '@/components/previews/file-upload-previewl.vue';
 import localforage from "localforage";
 import ImageCompressor from 'image-compressor.js';  //todo - cant we use this in Nuxt with serverside rendering ?
 import { useOnline } from "@vueuse/core"; //todo have add this
@@ -169,7 +160,6 @@ const imageSrc = ref<string>("");
 const images = reactive([]);
 const tempData = ref<any[]>([]);
 const showVideo = ref(false);
-const loading = ref<boolean>(true);
 const stream = ref<MediaStream | null>(null);
 const videoElement = ref<HTMLVideoElement | null>(null);
 const { fetchNotesForIndex, notesForIndex, isLoading, error } = useNotesStore();
@@ -181,8 +171,8 @@ onMounted(() => {
     window.addEventListener("offline", updateOnlineStatus);
     window.addEventListener("online", uploadOfflineImages);
     syncNoteWhenOnline();
-    fetchNotes();
-    fetchImage();
+    // fetchNotes();
+    // fetchImage();
   }
 });
 
@@ -238,9 +228,7 @@ const uploadImage = async () => {
           await uploadToServer(imageData);
         }
       }
-    });:
-
-
+    });
     reader.readAsDataURL(compressedFile);
   }
 };
@@ -375,11 +363,13 @@ const submitNote = async (note?: string) => {
 
         if (response.status === 201) {
           alert("Note added successfully");
-          await fetchNotes();
+          // await fetchNotes();
+          await fetchNotesForIndex();
           noteText.value = "";
           showNoteModal.value = false;
         } else {
           console.error("Failed to add note");
+          showNoteModal.value = false;
         }
       } catch (error) {
         console.error("Error:", error);
@@ -420,7 +410,6 @@ const syncNoteWhenOnline = async () => {
 const fetchNotes = async () => {
   try {
     const url = `${baseUrl}getNotes`;
-    console.log(" `${baseUrl}getNotes`;", url);
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -430,7 +419,6 @@ const fetchNotes = async () => {
     }
     tempData.value = (await response.json()) as any[];
     console.log(" tempData.value", tempData.value);
-    console.log(" notesForIndex", notesForIndex);
   } catch (error) {
     console.error("An error occurred while fetching notes:", error);
   }

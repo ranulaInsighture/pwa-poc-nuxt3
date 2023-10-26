@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
+import axios from 'axios';
 
 interface NoteForIndex {
   id: string;
-  content: string;
+  text: string;
 }
 
 export const useNotesStore = defineStore("notes", {
@@ -11,31 +12,33 @@ export const useNotesStore = defineStore("notes", {
     isLoading: false,
     error: null as string | null,
   }),
+  getters: {
+    allNotes(): NoteForIndex[] {
+      return this.notesForIndex;
+    }
+  },
   actions: {
     async fetchNotesForIndex() {
       this.isLoading = true;
       this.error = null;
-
-      const baseUrl = import.meta.env.VITE_BASE_URL;
-      const url = `${baseUrl}/getNotes`;
+      const baseUrl: string = import.meta.env.VITE_BASE_URL as string;
+      const url: string = `${baseUrl}getNotes`;
 
       try {
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error(
-            `Network response was not ok, status code: ${response.status}`,
-          );
-        }
-
-        const data = (await response.json()) as NoteForIndex[];
-        this.notesForIndex = data;
+        const response = await axios.get<NoteForIndex[]>(url);
+        this.notesForIndex = response.data;
+        console.log("Updated notesForIndex in store:", this.notesForIndex);
       } catch (error: any) {
         console.error("An error occurred while fetching notes:", error);
-        this.error = error.message || "An error occurred while fetching notes.";
+        if (error.response) {
+          this.error = `Network response was not ok, status code: ${error.response.status}, message: ${error.response.data}`;
+        } else {
+          this.error = error.message || "An error occurred while fetching notes.";
+        }
       } finally {
         this.isLoading = false;
       }
     },
   },
 });
+
