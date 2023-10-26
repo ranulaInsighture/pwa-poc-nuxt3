@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from 'axios';
+import axios from "axios";
 
 interface NoteForIndex {
   id: string;
@@ -15,7 +15,7 @@ export const useNotesStore = defineStore("notes", {
   getters: {
     allNotes(): NoteForIndex[] {
       return this.notesForIndex;
-    }
+    },
   },
   actions: {
     async fetchNotesForIndex() {
@@ -33,7 +33,8 @@ export const useNotesStore = defineStore("notes", {
         if (error.response) {
           this.error = `Network response was not ok, status code: ${error.response.status}, message: ${error.response.data}`;
         } else {
-          this.error = error.message || "An error occurred while fetching notes.";
+          this.error =
+            error.message || "An error occurred while fetching notes.";
         }
       } finally {
         this.isLoading = false;
@@ -41,4 +42,3 @@ export const useNotesStore = defineStore("notes", {
     },
   },
 });
-

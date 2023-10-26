@@ -39,14 +39,14 @@
         <h2 class="title">Added Notes</h2>
         <FileUploadPreviewl />
       </div>
-<!--      <div class="content-card">-->
-<!--        <h2 class="title">Added Notes</h2>-->
-<!--        <div v-for="(item, index) in tempData" :key="index">-->
-<!--          <p class="description">-->
-<!--            {{ item.text }}-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="content-card">-->
+      <!--        <h2 class="title">Added Notes</h2>-->
+      <!--        <div v-for="(item, index) in tempData" :key="index">-->
+      <!--          <p class="description">-->
+      <!--            {{ item.text }}-->
+      <!--          </p>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <div class="row">
       <button
@@ -142,9 +142,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed, reactive } from "vue-demi";
 import { useNotesStore } from "~/stores/notesStore";
-import FileUploadPreviewl from '@/components/previews/file-upload-previewl.vue';
+import FileUploadPreviewl from "@/components/previews/file-upload-previewl.vue";
 import localforage from "localforage";
-import ImageCompressor from 'image-compressor.js';  //todo - cant we use this in Nuxt with serverside rendering ?
+import ImageCompressor from "image-compressor.js"; //todo - cant we use this in Nuxt with serverside rendering ?
 import { useOnline } from "@vueuse/core"; //todo have add this
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -209,7 +209,7 @@ const uploadImage = async () => {
     const compressedFile = await compressor.compress(imageFile.value, {
       quality: 0.4,
       maxWidth: 100,
-      maxHeight: 100
+      maxHeight: 100,
     });
 
     const reader = new FileReader();

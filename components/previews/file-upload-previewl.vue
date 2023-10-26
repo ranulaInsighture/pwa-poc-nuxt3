@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue';
-import { useNotesStore } from '@/stores/notesStore';
+import { onMounted, watch } from "vue";
+import { useNotesStore } from "@/stores/notesStore";
 
 const notesStore = useNotesStore();
 const { notesForIndex, isLoading, error, fetchNotesForIndex } = notesStore;
@@ -24,13 +24,11 @@ onMounted(async () => {
 });
 
 watch(
-    () => notesStore.notesForIndex,
-    (newValue, oldValue) => {
-      console.log("notesForIndex changed:", newValue, "from", oldValue);
-    }
+  () => notesStore.notesForIndex,
+  (newValue, oldValue) => {
+    console.log("notesForIndex changed:", newValue, "from", oldValue);
+  },
 );
-
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
