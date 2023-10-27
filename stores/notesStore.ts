@@ -1,10 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { NoteForIndex } from '~/interfaces/noteInterfaces';
 
-interface NoteForIndex {
-  id: string;
-  text: string;
-}
 
 export const useNotesStore = defineStore("notes", {
   state: () => ({

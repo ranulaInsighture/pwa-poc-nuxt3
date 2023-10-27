@@ -67,16 +67,32 @@
   </main>
 
   <!-- Modal for add notes -->
-  <div v-if="showNoteModal" class="modal-overlay">
-    <div class="modal-custom-display">
+
+<!--  <div v-if="showNoteModal" class="modal-overlay">-->
+<!--    <div class="modal-custom-display">-->
+<!--      <h2>Add a note</h2>-->
+<!--      <textarea v-model="noteText" placeholder="Enter text..."></textarea>-->
+<!--      <div class="modal-actions">-->
+<!--        <button @click="showNoteModal = false">Cancel</button>-->
+<!--        <button @click="submitNote()">Submit</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <CommonModal :isOpen="showNoteModal">
+    <template #header>
       <h2>Add a note</h2>
-      <textarea v-model="noteText" placeholder="Enter text..."></textarea>
+    </template>
+
+    <textarea v-model="noteText" placeholder="Enter text..."></textarea>
+
+    <template #footer>
       <div class="modal-actions">
         <button @click="showNoteModal = false">Cancel</button>
         <button @click="submitNote()">Submit</button>
       </div>
-    </div>
-  </div>
+    </template>
+  </CommonModal>
 
   <!-- Modal for add images -->
   <div v-if="showImageModal" class="modal-overlay">
@@ -146,6 +162,7 @@ import FileUploadPreviewl from "@/components/previews/file-upload-previewl.vue";
 import localforage from "localforage";
 import ImageCompressor from "image-compressor.js"; //todo - cant we use this in Nuxt with serverside rendering ?
 import { useOnline } from "@vueuse/core"; //todo have add this
+import CommonModal from '@/components/modals/noteModal.vue';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const isOnline = ref(true);
@@ -172,7 +189,7 @@ onMounted(() => {
     window.addEventListener("online", uploadOfflineImages);
     syncNoteWhenOnline();
     // fetchNotes();
-    // fetchImage();
+    fetchImage();
   }
 });
 
